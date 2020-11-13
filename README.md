@@ -52,7 +52,7 @@
     #cache
     rdd.persist()
     ```
-  * 計數器:[用法範例](https://github.com/a13140120a/Spark_Note/blob/main/proj_Spark_Core/avg_temperature3.py)
+  * 計數器:[用法範例](https://github.com/a13140120a/Spark_Note/blob/master/proj_Spark_Core/avg_temperature3.py)
     ```js
     In [94]: accum = sc.accumulator(0) #必須放在func內
 
