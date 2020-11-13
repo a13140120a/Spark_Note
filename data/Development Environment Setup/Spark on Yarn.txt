@@ -1,0 +1,107 @@
+Concept: 
+
+A cluster can only have one Cluster/Resource Manager. 
+If Spark Standalone (i.e.Cluster/Resource Manager) is in charge, YARN shoud not be running and vice versa. 
+
+0. (Make sure Spark Standalone is not running)
+
+cd ~/spark-2.4.5-bin-hadoop2.7/sbin
+./stop-all.sh 
+
+we would not want mutiple resource/cluster managers (YARN/Standalone/...) to manage the same set of machines. 
+
+and make sure the HADOOP_CONF_DIR environment variable was set in ~/.bashrc at the client node (i.e. the node you run pyspark or spark-submit). The HADOOP_CONF_DIR tell spark-submit/pyspark where to find the YARN location
+
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+
+
+
+1. Configure yarn-site.xml to supprt running Spark programs
+
+cd /home/spark/hadoop-2.10.0/etc/hadoop
+
+vim yarn-site.xml
+---------------------------------
+Inside yarn-site.xml:
+...
+...
+
+<configuration>
+  <property>
+    <name>yarn.nodemanager.vmem-check-enabled</name>
+    <value>false</value>
+  </property>
+</configuration>
+
+
+2. Configure yarn-env.sh
+
+cd ~/spark-2.4.5-bin-hadoop2.7/conf/
+
+vim yarn-env.sh
+---------------------
+Inside yarn-env.sh at the bottom:
+...
+...
+export JAVA_HOME=/home/spark/jdk1.8.0_251
+export PATH=$JAVA_HOME/bin:$PATH
+
+export HADOOP_HOME=/home/spark/hadoop-2.10.0
+export PATH=$HADOOP_HOME/bin:$PATH
+
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+export ANACONDA_HOME=/home/spark/anaconda3
+export PATH=$ANACONDA_HOME/bin:$PATH
+
+
+3. Put Spark-related program that are needed to be used on YARN on HDFS
+
+hadoop fs -mkdir /user/spark/spark-2.4.5-bin-hadoop2.7
+hadoop fs -put ~/spark-2.4.5-bin-hadoop2.7/jars spark-2.4.5-bin-hadoop2.7
+
+
+4. Configure spark-defaults.conf and specify the Spark-related program that are needed to be used on YARN
+
+cd /home/spark/spark-2.4.5-bin-hadoop2.7/conf
+cp spark-defaults.conf.template spark-defaults.conf
+
+vim spark-defaults.conf
+----------------------
+Inside spark-defaults.conf at the bottom:
+...
+...
+spark.yarn.jars hdfs://devenv/user/spark/spark-2.4.5-bin-hadoop2.7/jars/*
+
+
+5. Start YARN and check the web console
+
+cd ~/hadoop-2.10.0/sbin
+./start-yarn.sh
+
+http://devenv:8088
+
+
+6. Test it and run some Spark programes
+
+pyspark --master yarn
+
+
+Python 3.7.6 (default, Jan  8 2020, 19:59:22) 
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.12.0 -- An enhanced Interactive Python. Type '?' for help.
+20/07/22 13:38:18 WARN util.Utils: Your hostname, devenv resolves to a loopback address: 127.0.1.1; using 192.168.186.133 instead (on interface ens33)
+20/07/22 13:38:18 WARN util.Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+20/07/22 13:38:19 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 2.4.5
+      /_/
+
+Using Python version 3.7.6 (default, Jan  8 2020 19:59:22)
+SparkSession available as 'spark'.

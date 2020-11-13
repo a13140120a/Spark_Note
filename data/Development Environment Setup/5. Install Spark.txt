@@ -1,0 +1,127 @@
+1. Download Spark 2.4.5
+
+google "apache spark" and go to the website
+find and donwload the binary version of 2.4.5 for hadoop 2.7+
+
+spark-2.4.5-bin-hadoop2.7.tgz
+
+
+2. Decompress and put it in home director
+
+cd ~/Downloads
+tar zxvf spark-2.4.5-bin-hadoop2.7.tgz 
+mv spark-2.4.5-bin-hadoop2.7 ~/
+
+
+3. Setup SPARK_HOME and PATH variables in ~/.bashrc
+
+cd ~
+vim .bashrc
+---------------------------------
+Inside .bashrc:
+...
+...
+
+export SPARK_HOME=/home/spark/spark-2.4.5-bin-hadoop2.7
+export PATH=$SPARK_HOME/bin:$PATH
+export PYSPARK_PYTHON=python
+
+# use ipython as the interactive shell
+export PYSPARK_DRIVER_PYTHON=ipython
+
+# use jupyter as the interactive shell
+#export PYSPARK_DRIVER_PYTHON=jupyter 
+#export PYSPARK_DRIVER_PYTHON_OPTS=notebook
+
+
+4. source ~/.bashrc for the settings to take effect
+
+source ~/.bashrc
+
+
+5. Configure spark-env.sh and slaves
+
+cd ~
+cd spark-2.4.5-bin-hadoop2.7/conf/
+
+mv spark-env.sh.template spark-env.sh
+
+vim spark-env.sh
+---------------------
+Inside spark-env.sh at the bottom:
+...
+...
+export JAVA_HOME=/home/spark/jdk1.8.0_251
+export PATH=$JAVA_HOME/bin:$PATH
+
+export HADOOP_HOME=/home/spark/hadoop-2.10.0
+export PATH=$HADOOP_HOME/bin:$PATH
+
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+export SCALA_HOME=/home/spark/scala-2.12.11
+export PATH=$SCALA_HOME/bin:$PATH
+
+export ANACONDA_HOME=/home/spark/anaconda3
+export PATH=$ANACONDA_HOME/bin:$PATH
+
+export SPARK_HOME=/home/spark/spark-2.4.5-bin-hadoop2.7
+export PATH=$SPARK_HOME/bin:$PATH
+
+
+----------------------
+
+mv slaves.template slaves
+
+vim slaves
+---------------------
+remove "localhost" entry add one entry:
+
+devenv
+
+----------------------
+
+
+6. Start the spark cluster
+
+cd ~/spark-2.4.5-bin-hadoop2.7/sbin
+./start-all.sh
+
+
+7. Check Spark Standalone cluster status through
+
+http://devenv:8080
+
+to see if there is a working running
+
+
+8. Test pyspark command
+
+pyspark --master spark://devenv:7077
+
+Python 3.7.6 (default, Jan  8 2020, 19:59:22) 
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.12.0 -- An enhanced Interactive Python. Type '?' for help.
+20/06/01 12:58:30 WARN Utils: Your hostname, devenv resolves to a loopback address: 127.0.1.1; using 192.168.186.148 instead (on interface ens33)
+20/06/01 12:58:30 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+20/06/01 12:58:30 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 2.4.5
+      /_/
+
+Using Python version 3.7.6 (default, Jan  8 2020 19:59:22)
+SparkSession available as 'spark'.
+
+9. Leave pyspark env.
+
+exit()
+
+or 
+
+ctrl + d

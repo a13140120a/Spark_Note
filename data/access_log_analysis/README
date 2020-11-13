@@ -1,0 +1,10 @@
+## Install Maxmind Python APi and IP database
+
+# 1. The API need to be installed across all worker nodes and client node
+
+pip install geoip2
+
+# 2. The database need to be installed exactly at the same place across all worker nodes
+
+cp -r ~/Desktop/spark101/access_log_analysis/maxmind ~/spark-2.4.5-bin-hadoop2.7/
+

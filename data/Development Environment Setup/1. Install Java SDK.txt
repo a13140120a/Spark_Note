@@ -1,0 +1,49 @@
+1. Download latest jdk 1.8 for Linux x64
+
+google "jdk 1.8" and go to the website
+find and download the version for Linux x64 in tar.gz format
+
+jdk-8u251-linux-x64.tar.gz
+
+
+2. Decompress and put it in home director
+
+cd ~/Downloads
+
+tar zxvf jdk-8u251-linux-x64.tar.gz
+mv jdk1.8.0_251 ~/
+
+
+3. Setup JAVA_HOME and PATH variables in ~/.bashrc
+
+cd ~
+vim ~/.bashrc
+
+--------------------
+Inside .bashrc file:
+...
+...
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+
+export JAVA_HOME=/home/spark/jdk1.8.0_251
+export PATH=$JAVA_HOME/bin:$PATH
+
+
+4. Source ~/.bashrc for the settings to take effect
+
+source ~/.bashrc
+
+
+5. Test it
+
+java -version

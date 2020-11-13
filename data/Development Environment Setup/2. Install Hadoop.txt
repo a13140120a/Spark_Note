@@ -1,0 +1,142 @@
+1. Download Hadoop 2.10.0
+
+google "apache hadoop" and go to the website
+find and donwload the binary version of 2.10.0
+
+hadoop-2.10.0.tar.gz
+
+
+2. Decompress and put it in home director
+
+cd ~/Downloads
+tar zxvf hadoop-2.10.0.tar.gz
+mv hadoop-2.10.0 ~/
+
+
+3. Configure core-site.xml, hdfs-site.xml, hadoop-env.sh and slaves
+
+cd ~
+cd hadoop-2.10.0/etc/hadoop/
+
+vim core-site.xml
+---------------------
+Inside core-site.xml:
+...
+...
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://devenv</value>
+  </property>
+</configuration>
+
+---------------------
+
+vim hdfs-site.xml
+---------------------
+Inside hdfs-site.xml:
+...
+...
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>/home/spark/hdfs/namenode/</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>/home/spark/hdfs/datanode/</value>
+  </property>
+</configuration>
+
+---------------------
+
+vim hadoop-env.sh
+---------------------
+Inside hadoop-env.sh at the bottom:
+...
+...
+
+export JAVA_HOME=/home/spark/jdk1.8.0_251
+export PATH=$JAVA_HOME/bin:$PATH
+
+export HADOOP_HOME=/home/spark/hadoop-2.10.0
+export PATH=$HADOOP_HOME/bin:$PATH
+
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+----------------------
+
+vim slaves
+---------------------
+add one entry:
+
+devenv
+
+----------------------
+
+
+4. Setup HADOOP_HOME and PATH variables in ~/.bashrc
+
+cd ~
+vim ~/.bashrc
+
+---------------------------------
+Inside .bashrc file:
+...
+...
+
+export HADOOP_HOME=/home/spark/hadoop-2.10.0
+export PATH=$HADOOP_HOME/bin:$PATH
+
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+
+5. source ~/.bashrc for the settings to take effect
+
+source ~/.bashrc
+
+
+6. Create folders for namenode and datanode to store required metadata and data
+
+cd ~
+mkdir hdfs
+
+cd hdfs
+mkdir namenode
+mkdir datanode
+
+
+7. Format namenode before HDFS is first started
+
+hadoop namenode -format
+
+
+8. Start the HDFS cluster
+
+cd ~
+cd hadoop-2.10.0/sbin
+
+./start-dfs.sh
+
+
+9. Check HDFS status through
+
+http://devenv:50070
+
+to see if the namemode and a datanode are running
+
+
+10. Create necessary folders in HDFS
+
+hadoop fs -mkdir /tmp
+hadoop fs -mkdir -p /user/spark
+
+hadoop fs -ls -R /
+--------------
+drwxr-xr-x   - spark supergroup          0 2020-06-01 12:12 /tmp
+drwxr-xr-x   - spark supergroup          0 2020-06-01 12:13 /user
+drwxr-xr-x   - spark supergroup          0 2020-06-01 12:13 /user/spark

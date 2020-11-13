@@ -1,0 +1,41 @@
+1. Download Anaconda distribution for Linux 64-Bit
+
+https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
+
+2. Install it
+
+cd ~/Download
+chmod +x Anaconda3-2020.02-Linux-x86_64.sh
+
+./Anaconda3-2020.02-Linux-x86_64.sh
+
+agree the license and install it with default su
+ggested settings
+
+
+3. Add anaconda bin to PATH env variable
+
+cd ~
+vim .bashrc
+------------
+Inside .bashrc:
+...
+...
+
+export ANACONDA_HOME=/home/spark/anaconda3
+export PATH=$ANACONDA_HOME/bin:$PATH
+
+
+4. Source it
+
+source ~/.bashrc
+
+
+5. Test it
+
+python
+Python 3.7.x
+
+
+6.(optional) Install PyCharm
+https://www.jetbrains.com/pycharm/
