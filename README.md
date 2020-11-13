@@ -66,18 +66,18 @@
     ```
   * 夾帶檔案, [example](https://github.com/a13140120a/Spark_Note/blob/main/proj_spark_sql/create_udf_page_views_df.py)
     ```JS
-  pyspark --master spark://master:7077 --py-files /PATH/xxx.zip  #夾帶多個py檔(使用module時)打包成zip檔\
-  #註:多個zip檔用逗號隔開
-  #打包zip
-  zip -r /home/folder/target.zip /home/folder2/subfolder/*
+    pyspark --master spark://master:7077 --py-files /PATH/xxx.zip  #夾帶多個py檔(使用module時)打包成zip檔\
+    #註:多個zip檔用逗號隔開
+    #打包zip
+    zip -r /home/folder/target.zip /home/folder2/subfolder/*
 
-  pyspark --master spark://master:7077 --py-files /PATH/xxx.py  #夾單個py檔
+    pyspark --master spark://master:7077 --py-files /PATH/xxx.py  #夾單個py檔
 
-  pyspark --master spark://master:7077 --files /PATH/file1  #夾帶其他檔案
+    pyspark --master spark://master:7077 --files /PATH/file1  #夾帶其他檔案
 
-  pyspark --master spark://master:7077 --jars  /PATH/file
-  # 用pyspark讀取檔案路徑時只要讀取當前目錄就可以了
-  ```
+    pyspark --master spark://master:7077 --jars  /PATH/file
+    # 用pyspark讀取檔案路徑時只要讀取當前目錄就可以了
+    ```
 
 ## 2. spark SQL  ##
 
