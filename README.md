@@ -64,7 +64,7 @@
     ```js
     rdd.saveAsTextFile("file:///path1/path2")
     ```
-  * 夾帶檔案, [example](https://github.com/a13140120a/Spark_Note/blob/main/proj_spark_sql/create_udf_page_views_df.py)
+  * 夾帶檔案, [example](https://github.com/a13140120a/Spark_Note/blob/master/proj_spark_sql/create_udf_page_views_df.py)
     ```JS
     pyspark --master spark://master:7077 --py-files /PATH/xxx.zip  #夾帶多個py檔(使用module時)打包成zip檔\
     #註:多個zip檔用逗號隔開
@@ -133,7 +133,7 @@
        ```js
        pyspark --master spark://master:7077 --jars "JDBC檔"(或是放到每台的spark資料夾底下的jars資料夾內)(或是設定每台的spark-env.sh)
        ```
-     * 寫入mysql:[示範檔](https://github.com/a13140120a/Spark_Note/blob/main/proj_spark_sql/crime_data_stats_wirte_to_mysql.py)
+     * 寫入mysql:[示範檔](https://github.com/a13140120a/Spark_Note/blob/master/proj_spark_sql/crime_data_stats_wirte_to_mysql.py)
      * 讀取mysql:
      ```js
      prop = {'user': 'user',
