@@ -335,7 +335,7 @@
   * [PySpark Collaborative Filtering with ALS](https://towardsdatascience.com/build-recommendation-system-with-pyspark-using-alternating-least-squares-als-matrix-factorisation-ebe1ad2e7679)
   * [ALS演算法實現使用者音樂打分預測](https://www.mdeditor.tw/pl/2jyv/zh-tw)
   * [Pyspark官方文件](https://spark.apache.org/docs/latest/api/python/pyspark.mllib.html#pyspark.mllib.recommendation.ALS)
-
+  * [超參數全攻略](https://kknews.cc/zh-tw/news/krybxnp.html)
 
 
 
