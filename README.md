@@ -330,11 +330,11 @@
 
 ## 3. Spark MLlib ##
 
-    * ALS演算法延伸閱讀:
-      * [als-recommender-pyspark](https://github.com/snehalnair/als-recommender-pyspark)
-      * [PySpark Collaborative Filtering with ALS](PySpark Collaborative Filtering with ALS)
-      * [ALS演算法實現使用者音樂打分預測](https://www.mdeditor.tw/pl/2jyv/zh-tw)
-      * [Pyspark官方文件](https://spark.apache.org/docs/latest/api/python/pyspark.mllib.html#pyspark.mllib.recommendation.ALS)
+* ALS演算法延伸閱讀:
+  * [als-recommender-pyspark](https://github.com/snehalnair/als-recommender-pyspark)
+  * [PySpark Collaborative Filtering with ALS](PySpark Collaborative Filtering with ALS)
+  * [ALS演算法實現使用者音樂打分預測](https://www.mdeditor.tw/pl/2jyv/zh-tw)
+  * [Pyspark官方文件](https://spark.apache.org/docs/latest/api/python/pyspark.mllib.html#pyspark.mllib.recommendation.ALS)
 
 
 
