@@ -43,7 +43,9 @@ if __name__ == "__main__":
     df.show(truncate=False)
 
     # Hashing TF is TF with hashing enabled to allow the feature vector to be a set value
-    df_tf = HashingTF(inputCol="words", outputCol="hashing_tf", numFeatures=15).transform(df)
+    df_tf = HashingTF(inputCol="words", outputCol="hashing_tf",
+                      numFeatures=15 #預設是262144維
+                     ).transform(df)
 
     df_tf.show()
     df_tf.select("words").show(truncate=False)
