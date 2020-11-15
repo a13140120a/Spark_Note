@@ -387,7 +387,17 @@
     bin/kafka-console-producer.sh --broker-list localhost:9092,更多 --topic {topicname}
     bin/kafka-console-consumer.sh --zookeeper localhost:9092 --topic {topicname}    
     ```
-  * 
+  * python:
+    ```js
+    spark = SparkSession \
+        .builder \
+        .getOrCreate()
+
+    sc = spark.sparkContext
+    ssc = StreamingContext(sc, 5) #一個rdd包含五秒的資料
+    
+    
+    ```
       
 
 
