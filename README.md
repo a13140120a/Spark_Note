@@ -339,7 +339,57 @@
 * TF-IDF:
   * TF:Term Frequency:一個詞(t)在一個document(D)出現的次數
   * DF:Document Frequency:一個詞(t)在幾個document(D)出現過
-  * IDF:Inverse Document Frequency:log((D+1)/(DF+1))
+  * IDF:Inverse Document Frequency:log((D+1)/(DF+1))  
+
+
+## 4. Spark Streaming ##  
+  * kafka 環境建置:
+    * 下載:https://kafka.apache.org/downloads  
+    * 解壓縮完，進入kafka目錄，執行:
+      ```js
+      bin/zookeeper-server-start.sh config/zookeeper.properties
+      ```
+    * Create 3個server.properties: 
+      ```js
+      conifg/server-0.properties  
+      conifg/server-1.properties  
+      conifg/server-2.properties 
+      ```
+    * 進入修改以下三項:  
+      ```js
+      broker.id=[0-2]  
+      log.dirs=/tmp/kafka-logs-[0-2]  
+      listeners=PLAINTEXT://:909[2-4]  
+      ```
+    * 開啟3個Broker:  
+      ```js
+      bin/kafka-server-start.sh config/server-0.properties   
+      bin/kafka-server-start.sh config/server-1.properties   
+      bin/kafka-server-start.sh config/server-2.properties   
+      ```
+    * Create Topic:  
+      ```js
+      bin/kafka-topics.sh --zookeeper {hostname}:2181 --create --topic test_stream --partitions 3 --replication-factor 3  
+      bin/kafka-topics.sh --zookeeper {hostname}:2181 --describe --topic test_stream  
+      ```
+    * test:
+      ```js
+      bin/kafka-console-producer.sh --broker-list devenv:9092 --topic test_stream  
+      bin/kafka-console-consumer.sh --zookeeper devenv:9092 --topic test_stream  
+      ```
+    * 安裝kafka-python:  
+      ```js
+      pip install kafka-python
+      ```
+* 簡單produce與comsume:([官網](https://pypi.org/project/kafka-python/)):
+  * console:
+    ```js
+    bin/kafka-console-producer.sh --broker-list localhost:9092,更多 --topic {topicname}
+    bin/kafka-console-consumer.sh --zookeeper localhost:9092 --topic {topicname}    
+    ```
+  * 
+      
+
 
 
 
