@@ -20,7 +20,7 @@ if __name__ == "__main__":
     words = Tokenizer(inputCol="message", outputCol="words").transform(df)
     words.show(truncate=False)
 
-
+    # 正規表達法資料清洗及斷詞
     # A regex based tokenizer that extracts tokens either by using the provided regex pattern (in Java dialect) to split the text (default) or repeatedly matching the regex (if gaps is false). Optional parameters also allow filtering tokens using a minimal length. It returns an array of strings that can be empty.
     words = RegexTokenizer(inputCol="message", outputCol="words", pattern="\\W+").transform(df)
     words.show(truncate=False)
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     stop_words_removed = StopWordsRemover(inputCol="words", outputCol="stop_words_removed").transform(words)
     stop_words_removed.show(truncate=False)
 
-
+    # 變成n字一組
     # NGram is a feature transformer that converts the input array of strings into an array of n-grams. Null values in the input array are ignored. It returns an array of n-grams where each n-gram is represented by a space-separated string of words. When the input is empty, an empty array is returned. When the input array length is less than n (number of elements per n-gram), no n-grams are returned.
     ngram_df = NGram(n=2, inputCol="words", outputCol="ngrams").transform(words)
 
@@ -48,6 +48,7 @@ if __name__ == "__main__":
     df_tf.show()
     df_tf.select("words").show(truncate=False)
     df_tf.select("hashing_tf").show(truncate=False)
+    #第一個list代表詞的index，第2個list代表詞出現次數
 
     # IDF
     df_tf_idf = IDF(inputCol="hashing_tf", outputCol="tf_idf").fit(df_tf).transform(df_tf)
