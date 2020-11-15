@@ -336,9 +336,10 @@
   * [ALS演算法實現使用者音樂打分預測](https://www.mdeditor.tw/pl/2jyv/zh-tw)
   * [Pyspark官方文件](https://spark.apache.org/docs/latest/api/python/pyspark.mllib.html#pyspark.mllib.recommendation.ALS)
   * [超參數全攻略](https://kknews.cc/zh-tw/news/krybxnp.html)
-
-
-
+* TF-IDF:
+  * TF:Term Frequency:一個詞(t)在一個document(D)出現的次數
+  * DF:Document Frequency:一個詞(t)在幾個document(D)出現過
+  * IDF:Inverse Document Frequency:log((D+1)/(DF+1))
 
 
 
