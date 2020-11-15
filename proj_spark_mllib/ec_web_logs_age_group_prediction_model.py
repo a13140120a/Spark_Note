@@ -16,16 +16,16 @@ if __name__ == "__main__":
     # Preprocessing and feature engineering
     feature_prep = logs.select("product_category_id", "device_type", "connect_type", "age_group") \
                        .where(~isnull("age_group"))
-
+    #變成0,1,2,3(level)
     feature_prep = StringIndexer(inputCol="age_group", outputCol="age_group_indexed").fit(feature_prep).transform(feature_prep)
-
+    #變成vector
     final_data = VectorAssembler(inputCols=["product_category_id", "device_type", "connect_type"],
                                  outputCol="features").transform(feature_prep)
 
     # Split data into train and test sets
     train_data, test_data = final_data.randomSplit([0.7, 0.3])
 
-    # Model training
+    # Model training(featuresCol預也是features)
     classifier = RandomForestClassifier(featuresCol="features", labelCol="age_group_indexed", numTrees=20, maxDepth=10)
     model = classifier.fit(train_data)
 
