@@ -395,6 +395,12 @@
   ```js
   nc -lk 9999
   ```
+  * 連線kafka的consumer:
+    ```js
+    #若程式有使用到KafkaUtils物件需加入參數:
+    spark-submit --master spark://{hostname}:7077 --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.4.7 ...
+    ```
+  
   * Python File Example:
     ```js
     spark = SparkSession \
@@ -433,10 +439,7 @@
     -> 選擇版本 -> Programming Guides   
     -> 搜尋Advanced Sources找到See the Kafka Integration Guide for more details.  
     -> 點擊spark-streaming-kafka-0-8(for python) 找到需要的api以及版本號  
-  * 連線Kafka: 
-    ```js
-    spark-submit --master spark://{hostname}:7077 --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.4.7 ...
-    ```
+
 * 使用[network_wordcount_to_kafka1.py](https://github.com/a13140120a/Spark_Note/blob/master/proj_spark_streaming/network_wordcount_to_kafka1.py)接收9999port的資料然後produce到kafka並且由另一隻consumer接收資料:
 ```js
 spark-submit --master spark://master:7077 network_wordcount_to_kafka1.py
