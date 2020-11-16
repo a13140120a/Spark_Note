@@ -391,7 +391,7 @@
     # 較新版kafka-consumer
     bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic {topicname}
     ```
-  * 開啟一個可以stdin 的console:  
+  * 開啟一個可以接收stdin 的console:  
   ```js
   nc -lk 9999
   ```
