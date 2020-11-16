@@ -345,7 +345,7 @@
 ## 4. Spark Streaming ##  
   * kafka 環境建置:
     * 下載:https://kafka.apache.org/downloads  
-    * 解壓縮完，進入kafka目錄，執行:
+    * 解壓縮完，進入kafka目錄，開啟Zookeeper:
       ```js
       bin/zookeeper-server-start.sh config/zookeeper.properties
       ```
@@ -387,7 +387,7 @@
     bin/kafka-console-producer.sh --broker-list localhost:9092,更多 --topic {topicname}
     bin/kafka-console-consumer.sh --zookeeper localhost:9092 --topic {topicname}    
     ```
-  * python:
+  * Python File Example:
     ```js
     spark = SparkSession \
         .builder \
@@ -395,6 +395,16 @@
 
     sc = spark.sparkContext
     ssc = StreamingContext(sc, 5) #一個rdd包含五秒的資料
+    
+    #接收input的資料(從master的9999port)
+    lines = ssc.socketTextStream("master", 9999)
+    
+    #
+    word_counts.pprint(30)
+
+    ssc.start()             # 執行程式
+    ssc.awaitTermination()  # 持續連線不中斷
+
     ```
 * 修改console顯示:只顯示ERROR 等級以上的提示:  
   * 到Spark目錄內的conf目錄找到`log4j.properties.template`  
@@ -403,10 +413,11 @@
     ```
   * 編輯:找到`log4j.rootCategory=INFO, console`，把 `INFO` 改成`ERROR`  
 
-
-      
-
-
+* Spark Streaming Api查詢:
+  * -> 官網 -> Older Versions and Other Resources  
+    -> 選擇版本 -> Programming Guides   
+    -> 搜尋Advanced Sources找到See the Kafka Integration Guide for more details.  
+    -> 點擊spark-streaming-kafka-0-8(for python) 找到需要的api以及版本號
 
 
 
