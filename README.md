@@ -437,9 +437,9 @@
     ```js
     spark-submit --master spark://{hostname}:7077 --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.4.7 ...
     ```
-* 使用[]()接收9999port的資料然後produce到kafka並且由另一隻consumer接收資料:
+* 使用[network_wordcount_to_kafka1.py](https://github.com/a13140120a/Spark_Note/blob/master/proj_spark_streaming/network_wordcount_to_kafka1.py)接收9999port的資料然後produce到kafka並且由另一隻consumer接收資料:
 ```js
-spark-submit --master spark://devenv:7077 network_wordcount_to_kafka1.py
+spark-submit --master spark://master:7077 network_wordcount_to_kafka1.py
 
 #開啟consumer接收資料
 cd ~/kafka_2.12-0.10.2.1/
