@@ -3,6 +3,7 @@
 ## 1. spark core  ##
   * anconda套件庫路徑: anaconda3/lib/python3/site-packages
   * 如果是使用spark-submit 執行py檔，需要在檔案內定義`sc = SparkContext()`
+  * 使用spark-submit時，若`~/.bashrc`是設定用jupyter執行會出現錯誤
   * 建立RDD物件
     ```js
     #創建list的方法
@@ -385,8 +386,15 @@
   * console:
     ```js
     bin/kafka-console-producer.sh --broker-list localhost:9092,更多 --topic {topicname}
-    bin/kafka-console-consumer.sh --zookeeper localhost:9092 --topic {topicname}    
+    bin/kafka-console-consumer.sh --zookeeper localhost:9092 --topic {topicname} 
+    
+    # 較新版kafka-consumer
+    bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic {topicname}
     ```
+  * 開啟一個可以stdin 的console:  
+  ```js
+  nc -lk 9999
+  ```
   * Python File Example:
     ```js
     spark = SparkSession \
@@ -396,10 +404,17 @@
     sc = spark.sparkContext
     ssc = StreamingContext(sc, 5) #一個rdd包含五秒的資料
     
+    #接收kafka資料
+    raw_stream = KafkaUtils.createStream(ssc,
+                                         "{master}:2181",    # zooleeper port號 
+                                         "consumer-group",   # comsumer id
+                                         {"test_stream": 3}) # TopicName 要用幾個執行續去接                           
+    windows = raw_stream.map(func).windows(10,2)#一次處理10s的資料，每2s處理一次(會處理重複資料)
+    
     #接收input的資料(從master的9999port)
     lines = ssc.socketTextStream("master", 9999)
     
-    #
+    #顯示在console
     word_counts.pprint(30)
 
     ssc.start()             # 執行程式
@@ -417,9 +432,19 @@
   * -> 官網 -> Older Versions and Other Resources  
     -> 選擇版本 -> Programming Guides   
     -> 搜尋Advanced Sources找到See the Kafka Integration Guide for more details.  
-    -> 點擊spark-streaming-kafka-0-8(for python) 找到需要的api以及版本號
+    -> 點擊spark-streaming-kafka-0-8(for python) 找到需要的api以及版本號  
+  * 連線Kafka: 
+    ```js
+    spark-submit --master spark://{hostname}:7077 --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.4.7 ...
+    ```
+* 使用[]()接收9999port的資料然後produce到kafka並且由另一隻consumer接收資料:
+```js
+spark-submit --master spark://devenv:7077 network_wordcount_to_kafka1.py
 
-
+#開啟consumer接收資料
+cd ~/kafka_2.12-0.10.2.1/
+bin/kafka-console-consumer.sh --zookeeper master:2181 --topic wordcount_result
+```
 
 
 
