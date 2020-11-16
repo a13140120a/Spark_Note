@@ -398,9 +398,9 @@
     ```
 * 修改console顯示:只顯示ERROR 等級以上的提示:  
   * 到Spark目錄內的conf目錄找到`log4j.properties.template`  
-  ```js
-  cp log4j.properties.template log4j.properties   #複製一個出來
-  ```
+    ```js
+    cp log4j.properties.template log4j.properties   #複製一個出來
+    ```
   * 編輯:找到`log4j.rootCategory=INFO, console`，把 `INFO` 改成`ERROR`  
 
 
