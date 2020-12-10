@@ -1,6 +1,12 @@
 # spark_note
 
-## 1. spark core  ##
+## [1. spark core](#001) #
+## [2. spark SQL](#002) #
+## [3. Spark MLlib](#003) #
+## [4. Spark Streaming](#004) #
+
+<h2 id="001">1. spark core</h2>   
+
   * anconda套件庫路徑: anaconda3/lib/python3/site-packages
   * 如果是使用spark-submit 執行py檔，需要在檔案內定義`sc = SparkContext()`
   * 使用spark-submit時，若`~/.bashrc`是設定用jupyter執行會出現錯誤
@@ -80,7 +86,7 @@
     # 用pyspark讀取檔案路徑時只要讀取當前目錄就可以了
     ```
 
-## 2. spark SQL  ##
+<h2 id="002">2. spark SQL</h2>  
 
   * 功能多寡: Spark SQL > Hive SQL > SQL
   * spark SQL table的一個row 就是一個rdd
@@ -329,7 +335,8 @@
 
     ```
 
-## 3. Spark MLlib ##
+<h2 id="003">3. Spark MLlib</h2>  
+
 
 * ALS演算法延伸閱讀:
   * [als-recommender-pyspark](https://github.com/snehalnair/als-recommender-pyspark)
@@ -342,8 +349,9 @@
   * DF:Document Frequency:一個詞(t)在幾個document(D)出現過
   * IDF:Inverse Document Frequency:log((D+1)/(DF+1))  
 
+<h2 id="004">4. Spark Streaming</h2>  
 
-## 4. Spark Streaming ##  
+
   * kafka 環境建置:
     * 下載:https://kafka.apache.org/downloads  
     * 解壓縮完，進入kafka目錄，開啟Zookeeper:
