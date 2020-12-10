@@ -98,27 +98,15 @@
 
   * [jdbc連線MySQL(version8以上)](https://github.com/a13140120a/SQL_note/blob/master/README.md#002):
 
-    * 重啟
-      ```js
-      sudo /etc/init.d/mysql restart
-      ```
-    * 登入:
-      ```js
-      mysql -u root -p
-      ```
+
     * [新增user](https://github.com/a13140120a/SQL_note/edit/master/README.md#001):
       ```js
       CREATE USER 'newuser'@'%' IDENTIFIED BY 'mypasswd';
 
       # 將所有 database 下的 table 都給予 newuser 所有權限
       GRANT ALL ON *.* TO 'newuser'@'%';
-
-      #查詢user:
-      select user, host from mysql.user;
-
-      #刪除user
-      DROP USER 'newuser'@'%';
       ```
+      
     * 遇到問題:Your password does not satisfy the current policy requirements
       代表密碼太短，解決:
       ```js
