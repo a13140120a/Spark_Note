@@ -96,14 +96,8 @@
     2. Column-Based: Parquetfile, ROC, RC
       可讀取指定欄位(佔記憶體空間較小，大型資料較常用)
 
-  * jdbc連線MySQL(version8以上):, [mySQL安裝](https://github.com/a13140120a/SQL_note/blob/master/README.md)
-    * 下載官網JDK檔(官網-> connector/j -> platform independent)
+  * [jdbc連線MySQL(version8以上)](https://github.com/a13140120a/SQL_note/blob/master/README.md#002):
 
-    * 修改 /etc/mysql/mysql.conf.d/mysqld.cnf 檔:
-      ```js
-      bind-address          = 127.0.0.1
-                           (改成要接受連線的ip，如果想要允許任何人連線就註解掉)
-      ```
     * 重啟
       ```js
       sudo /etc/init.d/mysql restart
@@ -112,10 +106,9 @@
       ```js
       mysql -u root -p
       ```
-    * 新增user:
+    * [新增user](https://github.com/a13140120a/SQL_note/edit/master/README.md#001):
       ```js
       CREATE USER 'newuser'@'%' IDENTIFIED BY 'mypasswd';
-      "%"代表任何ip都可以登入,IDENTIFIED BY [密碼]
 
       # 將所有 database 下的 table 都給予 newuser 所有權限
       GRANT ALL ON *.* TO 'newuser'@'%';
