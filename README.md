@@ -99,7 +99,7 @@
   * [jdbc連線MySQL(version8以上)](https://github.com/a13140120a/SQL_note/blob/master/README.md#002):
 
 
-    * [新增user](https://github.com/a13140120a/SQL_note/edit/master/README.md#001):
+    * [新增user](https://github.com/a13140120a/SQL_note/blob/master/README.md#001):
       ```js
       CREATE USER 'newuser'@'%' IDENTIFIED BY 'mypasswd';
 
