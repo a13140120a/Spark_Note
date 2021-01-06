@@ -1,11 +1,116 @@
 # spark_note
 
-## [1. spark core](#001) #
-## [2. spark SQL](#002) #
-## [3. Spark MLlib](#003) #
-## [4. Spark Streaming](#004) #
+## [1. 安裝](#001)
+## [1. spark core](#002) #
+## [2. spark SQL](#003) #
+## [3. Spark MLlib](#004) #
+## [4. Spark Streaming](#005) #
 ----
-<h2 id="001">1. spark core</h2>   
+
+<h2 id="001">1. 安裝</h2>   
+
+# spark_on_hadoop(2.4.5)
+
+##接續[https://github.com/a13140120a/hadoop](https://github.com/a13140120a/hadoop) 
+
+1. 下載並安裝Anaconda3(每台都要):https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh   
+  -> `./Anaconda3-2020.02-Linux-x86_64.sh`
+  * [Anaconda各版本載點](https://repo.anaconda.com/archive/)
+2.  修改權限
+  ```js
+  chmod +x Anaconda3-2020.02-Linux-x86_64.sh
+  ```
+
+3. 同意所有條款，然後vim ~/.bashrc，加上:(設定路徑)  
+```js
+export ANACONDA_HOME=/home/{username}/anaconda3
+export PATH=$ANACONDA_HOME/bin:$PATH
+```  
+4. surce and test  
+  * 移除(base): 在.bashrc 最底下加上
+  ```js
+  conda deactivate
+  ```
+
+5. 下載spark-2.4.5-bin-hadoop2.7.tgz
+
+6. 解壓縮:
+  ```js
+  cd ~/Downloads
+  tar zxvf spark-2.4.5-bin-hadoop2.7.tgz 
+  mv spark-2.4.5-bin-hadoop2.7 ~/
+  ```
+  
+7. 設定`.bashrc`環境變數SPARK_HOME 跟 PATH:  
+  在最底下加上:(記得`source ~/.bashrc`)
+  ```js
+  export SPARK_HOME=/home/{username}/spark-2.4.5-bin-hadoop2.7  #注意路徑
+  export PATH=$SPARK_HOME/bin:$PATH
+  export PYSPARK_PYTHON=python
+
+  # use ipython as the interactive shell
+  export PYSPARK_DRIVER_PYTHON=ipython
+
+  # use jupyter as the interactive shell
+  #export PYSPARK_DRIVER_PYTHON=jupyter    # 選擇使用jupyter notebook開啟
+  #export PYSPARK_DRIVER_PYTHON_OPTS=notebook
+  ```
+8. 設定spark-env.sh:
+  ```js
+  cd ~
+  cd spark-2.4.5-bin-hadoop2.7/conf/
+  mv spark-env.sh.template spark-env.sh
+  vim spark-env.sh
+  ```
+  在最底下加上:
+  ```js
+  export JAVA_HOME=/home/{username}/jdk1.8.0_251
+  export PATH=$JAVA_HOME/bin:$PATH
+
+  export HADOOP_HOME=/home/{username}/hadoop-2.10.0
+  export PATH=$HADOOP_HOME/bin:$PATH
+
+  export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+  export SCALA_HOME=/home/{username}/scala-2.12.11
+  export PATH=$SCALA_HOME/bin:$PATH
+
+  export ANACONDA_HOME=/home/{username}/anaconda3
+  export PATH=$ANACONDA_HOME/bin:$PATH
+
+  export SPARK_HOME=/home/{username}/spark-2.4.5-bin-hadoop2.7
+  export PATH=$SPARK_HOME/bin:$PATH
+  ```
+  
+9. 設定 slaves:  
+  ```js
+  mv slaves.template slaves
+  vim slaves
+  ```
+  把"localhost"改成:
+  ```js
+  {master}  #master的主機名稱
+  {slave1}  #slave1的主機名稱
+  {slave2}
+  ```
+  
+10.scp整個spark 資料夾與/.bashrc檔
+
+  
+11. 開啟spark:
+  ```js
+  cd ~/spark-2.4.5-bin-hadoop2.7/sbin
+  ./start-all.sh
+  ```
+12. 觀察Spark Standalone 狀態:
+   網址:http://{hostname}:8080
+
+13. 測試/執行
+   ```js
+   pyspark --master spark://{hostname}:7077
+   ```  
+
+<h2 id="002">2. spark core</h2>   
 
   * anconda套件庫路徑: anaconda3/lib/python3/site-packages
   * 如果是使用spark-submit 執行py檔，需要在檔案內定義`sc = SparkContext()`
@@ -86,7 +191,7 @@
     # 用pyspark讀取檔案路徑時只要讀取當前目錄就可以了
     ```
 
-<h2 id="002">2. spark SQL</h2>  
+<h2 id="003">3. spark SQL</h2>  
 
   * 功能多寡: Spark SQL > Hive SQL > SQL
   * spark SQL table的一個row 就是一個rdd
@@ -316,7 +421,7 @@
 
     ```
 
-<h2 id="003">3. Spark MLlib</h2>  
+<h2 id="004">4. Spark MLlib</h2>  
 
 
 * ALS演算法延伸閱讀:
@@ -330,7 +435,7 @@
   * DF:Document Frequency:一個詞(t)在幾個document(D)出現過
   * IDF:Inverse Document Frequency:log((D+1)/(DF+1))  
 
-<h2 id="004">4. Spark Streaming</h2>  
+<h2 id="005">5. Spark Streaming</h2>  
 
 
   * kafka 環境建置:
