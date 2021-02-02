@@ -16,7 +16,7 @@
 1. 下載並安裝Anaconda3(每台都要):https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh   
   -> `./Anaconda3-2020.02-Linux-x86_64.sh`
   * [Anaconda各版本載點](https://repo.anaconda.com/archive/)
-  * [miniconda各版本(mac專用)](https://repo.anaconda.com/miniconda/)
+  * [miniconda各版本(mac專用)](https://repo.anaconda.com/miniconda/)(請下載arm版)
 2.  修改權限
   ```js
   chmod +x Anaconda3-2020.02-Linux-x86_64.sh
